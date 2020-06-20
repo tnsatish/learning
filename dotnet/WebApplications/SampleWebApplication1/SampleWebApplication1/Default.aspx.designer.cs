@@ -10,6 +10,6 @@
 namespace SampleWebApplication1 {
     
     
-    public partial class Ajax {
+    public partial class Default {
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Ajax.aspx.cs" Inherits="SampleWebApplication1.Ajax" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="SampleWebApplication1.Default" %>
 
 <!DOCTYPE html>
 
@@ -12,8 +12,9 @@
     <form id="form1">
     <div id="bidamount">
         Hare Krishna.
-
+		<br /><br />
 		In this, we try to make an Ajax call and in that Ajax call, it tries to do something in a thread even when main thread is not active. 
+		<br /><br />
     </div>
     </form>
     <input type="button" id="btnInput" value="Submit" />
