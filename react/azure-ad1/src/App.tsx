@@ -9,7 +9,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const headers = { Authorization: `Bearer ${getToken()}` };
 
-    fetch('http://localhost:44307/api/user/current', { headers })
+    fetch('http://localhost:5000/user', { headers })
       .then(response => {
         if (response.ok) {
           response.json().then(u => setUser(u));

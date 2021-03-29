@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Hosting;
 using WebAPI.Services;
 
 namespace WebAPI
 {
-	public class Startup
+    public class Startup
 	{
 		public Startup(IConfiguration configuration)
 		{
@@ -28,6 +21,7 @@ namespace WebAPI
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddControllers();
 			services
 					.AddAuthentication(sharedOptions =>
 					{
@@ -41,14 +35,13 @@ namespace WebAPI
 						options.Authority = authSettings.Authority;
 					});
 
-
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			services.AddScoped<IIdentityService, AzureAdIdentityService>();
+			services.AddCors();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			if (env.IsDevelopment())
 			{
@@ -62,13 +55,17 @@ namespace WebAPI
 			app.UseAuthentication();
 
 			app.UseCors(builder => builder
-			.AllowAnyOrigin()
+			.SetIsOriginAllowed(_ => true)
 			.AllowAnyMethod()
 			.AllowAnyHeader()
 			.AllowCredentials());
 
 			app.UseHttpsRedirection();
-			app.UseMvc();
+
+			app.UseRouting();
+
+			app.UseAuthorization();
+			//app.UseMvc();
 		}
 	}
 }

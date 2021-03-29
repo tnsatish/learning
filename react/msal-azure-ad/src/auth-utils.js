@@ -61,7 +61,7 @@ export const GRAPH_REQUESTS = {
 export const msalApp = new UserAgentApplication({
     auth: {
         clientId: "19e98d7e-4ad6-4935-b309-986f0e27c539",
-        authority: "https://login.microsoftonline.com/common",
+        authority: "https://xomeb2c.b2clogin.com/tfp/",
         redirectUri: "http://localhost:3000/",
         validateAuthority: true,
         postLogoutRedirectUri: "http://localhost:3000",
